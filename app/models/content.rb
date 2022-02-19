@@ -1,3 +1,3 @@
 class Content < ApplicationRecord
-  validates :comment, presence: true
+  validates :title_id, uniqueness: true
 end
