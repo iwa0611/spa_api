@@ -52,4 +52,4 @@ production:
   <<: *default
   database: spa_api_production
   username: spa_api
-  password: <%= ENV['SPA_API_DATABASE_PASSWORD'] %>
+  password: <%= ENV['JAWSDB_URL']&.sub('mysql://', 'mysql2://') %>
