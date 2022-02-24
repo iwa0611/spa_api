@@ -6,24 +6,24 @@ class Api::V1::ContentsController < ApplicationController
     contents.each do |f|
       @json << JSON.parse(f.infoJSON)
     end
-    render status: 200, json: @json, message: "success"
+    render status: 200, json: @json, message: "リスト読込完了"
   end
   
   def create
     content = Content.new(addList_params)
     if content.save
-      render json: { status: 200, message: 'success' }
+      render json: { status: 200, message: 'リスト追加に成功' }
     else
-      render json: { status: 403, content: nil, message: content.errors }
+      render json: { status: 403, content: nil, message: '追加に失敗しました' }
     end
   end
 
   def destroy
     content = Content.find_by(title_id: params[:id])
     if content.destroy
-      render json: { status: 200, message: 'success' }
+      render json: { status: 200, message: 'リストから削除に成功' }
     else
-      render json: { status: 403, message: content.errors }
+      render json: { status: 403, message: '削除に失敗しました' }
     end
   end
 
