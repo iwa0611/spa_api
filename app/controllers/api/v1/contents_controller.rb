@@ -1,4 +1,5 @@
 class Api::V1::ContentsController < ApplicationController
+  before_action :authenticate_api_v1_user!, except: [:index]
 
   def index
     @json = []
