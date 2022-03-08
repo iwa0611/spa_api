@@ -9,6 +9,11 @@ class Api::V1::ContentsController < ApplicationController
     end
     render status: 200, json: @json, message: "リスト読込完了"
   end
+
+  def show
+    content = Content.find_by(title_id: params[:id])
+    render status: 200, json: content, message: 'レビュー読込完了'
+  end
   
   def create
     content = Content.new(addList_params)
@@ -28,7 +33,13 @@ class Api::V1::ContentsController < ApplicationController
     end
   end
 
-  def edit
+  def update
+    content = Content.find_by(title_id: params[:id])
+    if content.update(update_params)
+      render json: { status: 200, message: '編集に成功' }
+    else
+      render json: { status: 403, content: nil, message: '編集に失敗しました' }
+    end
   end
 
   def search
@@ -40,6 +51,10 @@ class Api::V1::ContentsController < ApplicationController
 
   def addList_params
     params.permit(:infoJSON, :title_id, :content)
+  end
+
+  def update_params
+    params.permit(:comment, :kawaii, :omosiroi, :nakeru, :atui, :sakuga)
   end
 
   def search_conditions(condition)
