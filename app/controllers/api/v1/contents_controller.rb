@@ -27,18 +27,18 @@ class Api::V1::ContentsController < ApplicationController
   def destroy
     content = Content.find_by(title_id: params[:id])
     if content.destroy
-      render json: { status: 200, message: 'リストから削除に成功' }
+      render status: 200, json: { message: 'リストから削除に成功' }
     else
-      render json: { status: 403, message: '削除に失敗しました' }
+      render status: 403, json: { message: '削除に失敗しました' }
     end
   end
 
   def update
     content = Content.find_by(title_id: params[:id])
     if content.update(update_params)
-      render json: { status: 200, message: '編集に成功' }
+      render status: 200, json: { message: '編集に成功' }
     else
-      render json: { status: 403, content: nil, message: '編集に失敗しました' }
+      render status: 403, json: { message: '編集に失敗しました' }
     end
   end
 
