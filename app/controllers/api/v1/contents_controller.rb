@@ -64,7 +64,8 @@ class Api::V1::ContentsController < ApplicationController
     header = { Authorization: ENV["API_KEY"] }
     query = { filter_title: condition[:word],
               filter_season: year,
-              per_page: 4 }
+              per_page: condition[:perPage],
+              page: condition[:page] }
     client = HTTPClient.new
     client.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
     client.get(ENV["API_URL"], header: header, query: query)
