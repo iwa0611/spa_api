@@ -33,7 +33,7 @@ RSpec.describe Api::V1::ContentsController do
       # infoJSON: "{\"id\":1, \"title\": \"test\"}"を送り変換されているかのテスト
       content = create(:content)
       get :index
-      expect(JSON.parse(response.body)[0].length).to eq 2
+      expect(JSON.parse(response.body)[0].length).to eq 3
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::ContentsController do
     
     before do
       WebMock.enable!
-      WebMock.stub_request(:get, ENV["API_URL"] + "?filter_season&filter_title&per_page=4").
+      WebMock.stub_request(:get, ENV["API_URL"] + "?filter_season&filter_title&page&per_page").
         with(
           headers: { Authorization: ENV["API_KEY"] },
         ).
