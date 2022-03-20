@@ -11,6 +11,13 @@ RSpec.describe "Content", type: :request do
       end
     end
 
+    context "search_indexに正常にリクエストを送った時" do
+      it "status200が返ってくる" do
+        post api_v1_search_index_path
+        expect(response.status).to eq 200
+      end
+    end
+
     context "createに正常にリクエストを送った時" do
       it "status200が返ってくる" do
         post api_v1_contents_path
