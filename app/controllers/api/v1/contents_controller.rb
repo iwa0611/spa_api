@@ -3,11 +3,22 @@ class Api::V1::ContentsController < ApplicationController
 
   def index
     @json = []
-    contents = Content.all
+    date = get_season
+    contents = Content.where('infoJSON LIKE?', "%#{date}%")
     contents.each do |f|
       @json << JSON.parse(f.infoJSON)
     end
     render status: 200, json: @json, message: "リスト読込完了"
+  end
+
+  def search_index
+    date = "#{params[:year]}" + "#{params[:season]}"
+    @search_json = []
+    contents = Content.where('infoJSON LIKE?', "%#{date}%")
+    contents.each do |f|
+      @search_json << JSON.parse(f.infoJSON)
+    end
+    render status: 200, json: @search_json, message: "リスト読込完了"
   end
 
   def show
@@ -48,6 +59,21 @@ class Api::V1::ContentsController < ApplicationController
   end
 
   private
+
+  def get_season
+     year = Date.current.strftime('%Y')
+     month = Date.current.strftime('%m').to_i
+     if month >= 1 && month < 4
+      season = '-winter'
+     elsif month >= 4 && month < 7
+      season = '-spring'
+     elsif month >= 7 && month < 10
+      season = '-summer'
+     else
+      season = '-autumn'
+     end
+     year + season
+  end
 
   def addList_params
     params.permit(:infoJSON, :title_id, :content)
