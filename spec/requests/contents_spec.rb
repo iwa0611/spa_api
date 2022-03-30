@@ -39,27 +39,11 @@ RSpec.describe "Content", type: :request do
       end
     end
 
-    # 403を返す場合がないのでスキップ
-    #context "updateに不正なリクエストを送った時" do
-    #  it "status403が返ってくる" do
-    #    patch api_v1_content_path(id: content.title_id)
-    #    expect(response.status).to eq 403
-    #  end
-    #end
-
     context "destroyに正常にリクエストを送った時" do
       it "status200が返ってくる" do
         delete api_v1_content_path(id: content.title_id)
         expect(response.status).to eq 200
       end
     end
-
-    # 403を返す場合がないのでスキップ
-    #context "destroyに不正なリクエストを送った時" do
-    #  it "status403が返ってくる" do
-    #    delete api_v1_content_path(id: content.title_id)
-    #    expect(response.status).to eq 403
-    #  end
-    #end
   end
 end
