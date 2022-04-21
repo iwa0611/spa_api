@@ -20,6 +20,15 @@ class Api::V1::ContentsController < ApplicationController
     render status: 200, json: @search_json, message: "リスト読込完了"
   end
 
+  def favorite_index
+    @favorite_json = []
+    contents = Content.where(favorite: true)
+    contents.each do |f|
+      @favorite_json << JSON.parse(f.infoJSON)
+    end
+    render status: 200, json: @favorite_json, message: "リスト読込完了"
+  end
+
   def show
     content = Content.find_by(title_id: params[:id])
     render status: 200, json: content, message: 'レビュー読込完了'
@@ -79,7 +88,7 @@ class Api::V1::ContentsController < ApplicationController
   end
 
   def update_params
-    params.permit(:comment, :kawaii, :omosiroi, :nakeru, :atui, :sakuga)
+    params.permit(:comment, :kawaii, :omosiroi, :nakeru, :atui, :sakuga, :favorite)
   end
 
   def search_conditions(condition)
