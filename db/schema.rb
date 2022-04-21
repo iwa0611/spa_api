@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_07_084322) do
+ActiveRecord::Schema.define(version: 2022_04_21_055702) do
 
   create_table "contents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "comment"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2022_03_07_084322) do
     t.integer "nakeru", default: 3
     t.integer "atui", default: 3
     t.integer "sakuga", default: 3
+    t.boolean "favorite", default: false, null: false
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
